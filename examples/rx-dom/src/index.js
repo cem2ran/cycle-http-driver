@@ -20,7 +20,7 @@ function main({DOM, HTTP}) {
   const otherResponse$ = HTTP.get(otherRequestParams$)
 
   otherResponse$.map(result => result.response.data[0].images.fixed_height.url)
-  .tap(url =>{
+  .subscribe(url =>{
     console.log("%c+","font-size: 1px; padding: 100px 200px; line-height:200px; background-size: 200px 200px; background: url("+encodeURI(url)+")")
   })
 
@@ -45,7 +45,7 @@ function main({DOM, HTTP}) {
     // Request both api.github.com and google.com
     // endpoints. All HTTP requests should be sent to
     // this driver.
-    HTTP: githubResponse$.merge(otherResponse$)
+    //HTTP: githubResponse$.merge(otherResponse$)
   };
 }
 
