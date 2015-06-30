@@ -1,0 +1,22 @@
+{
+  "name": "cyclejs-rx-dom-ajax-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "watchify -d -v -t [babelify --stage 1] src/index.js -o 'exorcist index.js.map > index.js'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cycle/core": "^1.0.0-rc1",
+    "@cycle/web": "^1.0.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "exorcist": "^0.4.0",
+    "watchify": "^3.2.3"
+  }
+}
