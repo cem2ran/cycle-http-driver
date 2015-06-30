@@ -18,18 +18,18 @@ function main(responses) {
   const apiError = responses.DOM.get('#github-api', 'error')
 
   apiRequest.subscribe(e => console.log("REQUEST",e))
-  //apiResponse$.subscribe(e => console.log(e))
+  apiResponse$.subscribe(e => console.log("RESPONSE",e))
   apiError.subscribe(e => console.log(e))
 
-  function logger (e, msg="") {
-    console.log(msg, e)
+  function logger (e) {
+    console.log(e)
     return e;
   }
 
   searchRequest$.subscribe(logger)
 
   const vtree$ = apiResponse$
-    .combineLatest(searchRequest$, (response, q) => ({q, response}))
+    .withLatestFrom(searchRequest$, (response, q) => ({q, response}))
     .map(logger)
     .map(({q, response}) =>
       h('div', [
