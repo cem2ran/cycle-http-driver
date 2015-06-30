@@ -5,17 +5,19 @@ var Rx = require('rx-dom');
 // but maybe it would make sense to give some parameters
 // to the factory. I just don't know which parameters would
 // those be. A cache? Suggestions please.
-function makeHTTPDriver(cache) {
+function makeHTTPDriver() {
   return function httpDriver(request$) {
     return {
-    	get: function(params$){
-    		//cache could be implemented here, full request url as key
-    		//if(cache) {...}
-    		//else
-    		return params$.flatMapLatest(function(parameters){
-    			return Rx.DOM.ajax((typeof parameters === "string") ? encodeURI(parameters) : parameters)
-    		})
-    	}
+        get: function(key){
+            return request$.map(function (request) {
+              var response$ = Rx.DOM.ajax(request);
+              response$.request = request.url || request;
+              return response$;
+            })
+            .filter(function(res$){
+                return res$.request.indexOf(key) === 0
+            });
+        }
     }
   }
 }
